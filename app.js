@@ -12,6 +12,14 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+/*
+	DOCU: setting up profiler to get the data to be dispplayed, you can turn the profile by doing
+		req.enable_profiler = true
+	OWNER: ronrix
+*/
+const Profiler = require("./modules/profiler/Profiler");
+app.use(new Profiler().setup);
+
 // set up view engine, you can change this based on your view engine preferrence
 app.set("views",__dirname + "/views");
 app.set("view engine", "ejs");

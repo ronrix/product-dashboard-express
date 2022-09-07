@@ -6,6 +6,8 @@
 const mysql = require("mysql2");
 const {db_config} = require("../config");
 
+const Profiler = require("../modules/profiler/Profiler");
+
 class Connection {
 	constructor() {
 		this.connection = mysql.createConnection({
@@ -29,6 +31,28 @@ class Connection {
 		return mysql.format(query, Object.values(fields));
 	}
 	
+	_query(query, fields = []) {
+
+		query = this.format_query(query, fields);
+		// set the query to the profiler
+		Profiler.body.query = query;
+
+		return new Promise((resolve, reject) => {
+			this.connection.query(query, (err, result) => {
+
+				if(err) {
+					throw err;
+				}
+
+				if(result.length === 0) {
+					reject("No user found!");
+				}
+				else {
+					resolve(result);
+				}
+			});
+		});
+	}
 }
 
 module.exports = Connection;

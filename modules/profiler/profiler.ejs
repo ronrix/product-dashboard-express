@@ -1,0 +1,100 @@
+<% if(enable_profiler) {%>
+<style>
+	div.profiler {
+		width: auto;
+	}
+	div.profile {
+		padding: 5px;
+		border: 1px solid #000000;
+		color: #000000;
+		margin-bottom: 5px;
+	}
+	div.benchmarks {
+		border: 1px solid #d84242;
+		color: #d84242;
+	}
+	div.get {
+		border: 1px solid #d8d842;
+		color: #d8d842;
+	}
+	div.post {
+		border: 1px solid #42d842;
+		color: #42d842;
+	}
+	div.uri {
+		border: 1px solid #1d211d;
+		color: #1d211d;
+	}
+	div.class {
+		border: 1px solid #9c970d;
+		color: #9c970d;
+	}
+	div.queries {
+		border: 1px solid #2a4bdd;
+		color: #2a4bdd;
+	}
+</style>
+<div class="profiler">
+	<div class="profile benchmarks">
+		<h3>BENCHMARKS</h3>
+		<p>Total Execution Time: <%= Math.floor((new Date().getTime() - profiler.benchmarks.start)/1000) %>ms</p>
+	</div>
+	<div class="profile get">
+		<h3>GET DATA</h3>
+	<% if(Object.keys(profiler.get_data).length) { %>
+		<p><%= JSON.stringify(profiler.get_data)  %></p>
+	<% }else {%>
+		<p>No GET data exists</p>
+	<% } %>
+	</div>
+	<div class="profile post">
+		<h3>POST DATA</h3>
+	<% if(Object.keys(profiler.post_data).length) { %>
+		<p><%= JSON.stringify(profiler.post_data)  %></p>
+	<% }else {%>
+		<p>No POST data exists</p>
+	<% } %>
+	</div>
+	<div class="profile uri">
+		<h3>URI STRING</h3>
+		<% if(profiler.uri_string.length > 0) { %>
+			<p><%= profiler.uri_string  %></p>
+		<% }else {%>
+			<p>No URI data exists</p>
+		<% } %>	
+	</div>
+	<div class="profile class">
+		<h3>CLASS METHOD</h3>
+		<% if(profiler.class.length > 0) { %>
+			<p><%= profiler.class  %></p>
+		<% }else {%>
+			<p>No CLASS METHOD exists</p>
+		<% } %>	
+	</div>
+	<div class="profile queries">
+		<h3>QUERIES</h3>
+		<% if(profiler.query.length > 0) { %>
+			<p><%= profiler.query  %></p>
+		<% }else {%>
+			<p>No QUERIES exists</p>
+		<% } %>
+	</div>
+	<div class="profile">
+		<h3>HTTP HEADERS</h3>
+<% Object.entries(profiler.headers).forEach(([key, value]) => {%>
+ 		<p><%= key + ":" + value %></p>
+<% }) %>
+	</div>
+	<div class="profile">
+		<h3>CONFIG VARIABLES</h3>
+<% Object.entries(profiler.config).forEach(([key, value]) => {%>
+	<% if(typeof value === "object") { %>
+		<%	Object.entries(value).forEach(([k, val]) => { %>
+		<p><%= k + ":" + val %></p>
+		<% }); return %>
+	<% }%>
+		<p><%= key + ":" + JSON.stringify(value) %></p>
+<% }) %>
+	</div>
+</div>
+<% } %>
