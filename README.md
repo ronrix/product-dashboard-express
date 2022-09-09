@@ -1,6 +1,7 @@
 # My own mvc framework
 
 ## run this to start the app
+	- npm install
 	- npm start
 ## assets 
 	- all static files like images, styles, js are included in here

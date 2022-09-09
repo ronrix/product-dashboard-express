@@ -25,7 +25,6 @@ class Profiler {
 	enable_profiler = (controller, req, is_enable) => {
 		Profiler.body.class = controller.constructor.name + "/" + req.route.stack[0].name;
 		req.enable = is_enable;
-		// Profiler.body.benchmarks.end = new Date().getUTCMilliseconds();
 		req.profiler = this.get();
 	}
 
@@ -35,13 +34,8 @@ class Profiler {
 			Profiler.body.get_data = req.params;
 			Profiler.body.uri_string = req.originalUrl;
 		}
-		// get the time of the first execution
-		// if(!Profiler.body.benchmarks.start) {
-		// 	Profiler.body.benchmarks.start = new Date().getTime(); 
-		// }
 
 		Profiler.body.benchmarks.start = performance.now()/1000; 
-
 
 		// setting fixed values of profilers
 		Profiler.body.headers = req.headers;
