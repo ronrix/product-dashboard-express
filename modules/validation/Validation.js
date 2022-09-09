@@ -2,6 +2,10 @@
 
 class FormValidation {
 	
+	is_password_valid(password) {
+		return password.length >= 8;
+	}
+
 	is_email_valid(email) {
 		return email.includes("@") && email.includes(".com");
 	}
@@ -14,7 +18,7 @@ class FormValidation {
 			}
 		});
 		// if res has empty values return 0 for "not valid" else "valid"
-		return empty ? 0 : 1;
+		return empty;
 	}
 
 	// is_email_already_exists(query, cb) {

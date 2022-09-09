@@ -134,3 +134,17 @@ class HomeModel extends Connection {
 	//views/index.ejs
 	<%- include("../modules/profiler/profiler.ejs") %>
 ```
+
+## Form Validation
+	- there are some validation here as default
+	- you can add more
+	- you can use it on your models
+```
+	const FormValidation = require("../modules/validation/Validation");
+
+	// instantiate it in the model constructor
+	this.FormValidation = new FormValidation();
+
+	// use it on any model methods like this
+	this.FormValidation.is_email_valid(fields);
+```

@@ -5,17 +5,29 @@
 */ 
 
 const Connection = require("../connection/Connection");
+const FormValidation = require("../modules/validation/Validation");
 
 class HomeModel extends Connection {
 	constructor() {
 		super();
+
+		this.FormValidation = new FormValidation();
 	}
 	
-	login(fields) {
-		return this._query(`
+	async login(fields) {
+
+		// add form validation here
+		if(this.FormValidation.is_empty(fields)) {
+			throw {msg: "Please fill up the fields", status: 400};
+		}
+		if(!this.FormValidation.is_email_valid(fields.email)) {
+			throw {msg: "Email is not valid", status: 400};
+		}
+
+		return await this._query(`
 			SELECT users.id, users.first_name, users.email, users.password
 			FROM users
-			WHERE users.email = ? AND users.password = ? LIMIT 1;`, 
+			WHERE users.email = ? AND users.password = ? LIMIT 1`, 
 			fields
 		);
 	}

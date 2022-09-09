@@ -44,7 +44,7 @@ class HomeController {
 			req.session.msg = null;
 			res.redirect("/profile");
 		}).catch(err => {
-			req.session.msg = {err};
+			req.session.msg = err;
 			res.redirect("/");
 		});
 	}
