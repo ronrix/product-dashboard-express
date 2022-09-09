@@ -1,6 +1,7 @@
 # My own mvc framework
 
-
+## run this to start the app
+	- npm start
 ## assets 
 	- all static files like images, styles, js are included in here
 
@@ -126,4 +127,9 @@ class HomeModel extends Connection {
 
 	// and use res.view() to display the profiler in the dom instead of using res.render()
 	res.view("views/file.html", data);
+```
+	- and add the html file of the profiler on your view files
+```
+	//views/index.ejs
+	<%- include("../modules/profiler/profiler.ejs") %>
 ```

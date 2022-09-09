@@ -37,7 +37,7 @@
 <div class="profiler">
 	<div class="profile benchmarks">
 		<h3>BENCHMARKS</h3>
-		<p>Total Execution Time: <%= Math.floor((new Date().getTime() - profiler.benchmarks.start)/1000) %>ms</p>
+		<p>Total Execution Time: <%= profiler.benchmarks.start %>ms</p>
 	</div>
 	<div class="profile get">
 		<h3>GET DATA</h3>
@@ -63,6 +63,10 @@
 			<p>No URI data exists</p>
 		<% } %>	
 	</div>
+	<div class="profile">
+		<h3>MEMORY USED</h3>
+		<p><%= profiler.memory  %>MB</p>
+	</div>
 	<div class="profile class">
 		<h3>CLASS METHOD</h3>
 		<% if(profiler.class.length > 0) { %>
@@ -73,17 +77,23 @@
 	</div>
 	<div class="profile queries">
 		<h3>QUERIES</h3>
-		<% if(profiler.query.length > 0) { %>
-			<p><%= profiler.query  %></p>
-		<% }else {%>
-			<p>No QUERIES exists</p>
+	<% if(profiler.query.length > 0) { %>
+		<% for(const q of profiler.query) { %>	
+			<p><%= q  %></p>
 		<% } %>
+	<% }else {%>
+			<p>No QUERIES exists</p>
+	<% } %>
 	</div>
 	<div class="profile">
 		<h3>HTTP HEADERS</h3>
 <% Object.entries(profiler.headers).forEach(([key, value]) => {%>
  		<p><%= key + ":" + value %></p>
 <% }) %>
+	</div>
+	<div class="profile">
+		<h3>SESSION DATA</h3>
+		<p><%= JSON.stringify(profiler.session) %></p>
 	</div>
 	<div class="profile">
 		<h3>CONFIG VARIABLES</h3>

@@ -35,7 +35,7 @@ class Connection {
 
 		query = this.format_query(query, fields);
 		// set the query to the profiler
-		Profiler.body.query = query;
+		Profiler.body.query.push(query);
 
 		return new Promise((resolve, reject) => {
 			this.connection.query(query, (err, result) => {

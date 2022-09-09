@@ -1,4 +1,6 @@
 
+const process = require("process");
+const {performance} = require("perf_hooks");
 
 class Profiler {
 
@@ -6,9 +8,12 @@ class Profiler {
 		post_data: {},
 		get_data: {},
 		uri_string: "",
-		query: "",
+		query: [],
+		memory: null,
 		benchmarks: {},
 		class: {},
+		session: {},
+		cookies: {},
 		headers: {},
 		config: {}
 	};
@@ -31,12 +36,18 @@ class Profiler {
 			Profiler.body.uri_string = req.originalUrl;
 		}
 		// get the time of the first execution
-		if(!Profiler.body.benchmarks.start) {
-			Profiler.body.benchmarks.start = new Date().getTime(); 
-		}
+		// if(!Profiler.body.benchmarks.start) {
+		// 	Profiler.body.benchmarks.start = new Date().getTime(); 
+		// }
+
+		Profiler.body.benchmarks.start = performance.now()/1000; 
+
+
 		// setting fixed values of profilers
 		Profiler.body.headers = req.headers;
 		Profiler.body.config = require("../../config");
+		Profiler.body.memory = process.memoryUsage().heapTotal/1024/1024;
+		Profiler.body.session = req.session;
 	
 		req.profiler = this.get();
 		req.enable = false;
