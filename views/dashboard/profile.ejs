@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Edit Profile</title>
+	<!-- bootstrap cdn -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<% if(msg) { %>
+	<script>
+		window.addEventListener("load", () => {
+			const toastTrigger = document.getElementById('liveToastBtn');
+			const toastLiveExample = document.getElementById('liveToast');
+			if (toastTrigger) {
+				toastTrigger.addEventListener('click', () => {
+					const toast = new bootstrap.Toast(toastLiveExample)
+
+					toast.show()
+				})
+			}
+			document.getElementById("liveToastBtn").click();
+		});
+	</script>
+<% } %>
+
+</head>
+<body>
+	<div class="container">
+
+		<header class="d-flex justify-content-between align-items-center border-bottom">
+			<div class="d-flex align-items-center">
+				<h1 class="d-inline-block">V88 Merchandise</h1>
+				<a class="mx-2" href="/dashboard">Dashboard</a>
+				<a href="/users/edit">Profile</a>
+			</div>
+			<div>
+				<a href="/logoff">Log Off</a>
+			</div>
+		</header>
+
+		<h2 class="my-4">Edit Profile</h2>
+
+		<!-- alert toast -->
+		<button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+
+		<div class="toast-container position-fixed top-0 end-0 p-3">
+			<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+				<div class="toast-header">
+					<div class="bg-primary mx-2" style="width: 10px; height: 10px;"></div>
+					<strong class="me-auto">Message</strong>
+					<small>now</small>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body <%= msg && msg.status == 400 ? "bg-danger" : "bg-success" %> text-light">
+					<%= msg ? msg.msg : "default" %>
+				</div>
+			</div>
+		</div>
+		<!-- end of alert toast -->
+
+		<div class="row">
+			
+			<!-- edit information form -->
+			<form action="/user/process_edit_information" method="POST" class="col-sm-12 col-md-6">
+				<h3>Edit Information</h3>
+				<div class="mb-3">
+					<label for="exampleFormControlInput1" class="form-label">Email address</label>
+					<input type="email" name="email" class="form-control" id="exampleFormControlInput1">
+				</div>
+				<div class="mb-3">
+					<label for="exampleFormControlInput3" class="form-label">First name:</label>
+					<input type="text" name="fname" class="form-control" id="exampleFormControlInput3">
+				</div>
+				<div class="mb-3">
+					<label for="exampleFormControlInput4" class="form-label">last name:</label>
+					<input type="text" name="lname" class="form-control" id="exampleFormControlInput4">
+				</div>
+ 
+				<input type="submit" value="Save" class="btn btn-primary">
+			</form>
+
+			<!-- password edit form -->
+			<form action="/user/process_edit_password" method="POST" class="col-sm-12 col-md-6 mt-sm-5 mt-md-0">
+				<h3>Change Password</h3>
+				<div class="mb-3">
+					<label for="exampleFormControlInput5" class="form-label">Old password</label>
+					<input type="password" name="old_password" class="form-control" id="exampleFormControlInput5">
+				</div>
+				<div class="mb-3">
+					<label for="exampleFormControlInput6" class="form-label">New password:</label>
+					<input type="password" name="new_password" class="form-control" id="exampleFormControlInput6">
+				</div>
+				<div class="mb-3">
+					<label for="exampleFormControlInput7" class="form-label">Confirm password:</label>
+					<input type="password" name="confirm_new_password" class="form-control" id="exampleFormControlInput7">
+				</div>
+ 
+				<input type="submit" value="Save" class="btn btn-primary">
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>

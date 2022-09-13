@@ -8,9 +8,18 @@ const db_config = {
 	port: 3306,
 }
 
+const DB_CONFIG_POSTGRE = {
+	host:  "localhost",
+	user: "ronrix",
+	password: "root",
+	database: "product_dashboard",
+	post: 5432
+}
+
 module.exports = {
 	PORT,
 	db_config,
+	DB_CONFIG_POSTGRE 
 }
 
 /*
