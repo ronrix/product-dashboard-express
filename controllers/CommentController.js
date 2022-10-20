@@ -1,5 +1,5 @@
 
-const CommentModel = require("../models/ComentModel");
+const CommentModel = require("../models/CommentModel");
 
 class CommentController {
 

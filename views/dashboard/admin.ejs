@@ -74,7 +74,7 @@
 		<% if(products) { %>
 			<% for(let i=0; i<products[0].products.length; i++) { %>
 				<tr>
-					<td><a href="/product/show/id"><%= products[0].products[i].product_name %></a></td>
+					<td><a href="/products/show/<%= products[0].user_id + ":" + i %>"><%= products[0].products[i].product_name %></a></td>
 					<td><%= products[0].products[i].inventory_count %></td>
 					<td><%= products[0].products[i].quantity_sold %></td>
 					<td class="action"><a href="/product/edit/<%= i %>" class="mx-2">Edit</a><a href="/product/confirmation/<%= i %>">Remove</a></td>
